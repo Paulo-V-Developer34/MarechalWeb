@@ -1,8 +1,7 @@
-import Avisos from "@/components/Avisos";
-import Impressora from "@/components/Impressora";
-import Nav from "@/components/Nav";
-import Agenda from "@/components/Agenda";
-import Fale from "@/components/Fale";
+import Avisos from "@/components/home/Avisos";
+import Impressora from "@/components/home/Impressora";
+import Agenda from "@/components/home/Agenda";
+import Fale from "@/components/home/Fale";
 
 export default function Home(){
     return (

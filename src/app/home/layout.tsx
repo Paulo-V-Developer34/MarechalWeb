@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Nav from "@/components/Nav";
+import Footer from "@/components/common/Footer";
+import Nav from "@/components/common/Nav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({
         <header>
             <Nav/>
         </header>
-        <main>
+        <main className="items-center border-spacing-1">
             {children}
         </main>
         <Footer/>

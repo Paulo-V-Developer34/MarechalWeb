@@ -1,4 +1,4 @@
-import Form from "@/components/Form";
+import Form from "@/components/common/Form";
 import Image from "next/image";//não sei como usar isso no background ;-;S
 
 export default function Home() {
