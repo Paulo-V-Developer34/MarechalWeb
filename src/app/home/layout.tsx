@@ -17,7 +17,7 @@ export default function RootLayout({
         <header>
             <Nav/>
         </header>
-        <main className="items-center border-spacing-1">
+        <main className="flex flex-col items-center border-spacing-1">
             {children}
         </main>
         <Footer/>
