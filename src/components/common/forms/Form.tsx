@@ -12,32 +12,24 @@ interface dados {
 }
 
 export default function Form(props: dados) {
-  function gerarinputs() {
-    return props.inputs.map((el, i) => {
-      return (
-        <div className="mb-4" key={el.input}>
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <form action={props.action}>
+        <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor={el.input}
+            htmlFor="Nome"
           >
-            {el.input}
+            Nome
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id={(Math.random() * 999999).toString()}
+            id={(Math.random() * 999999).toString()} //criação de ID //deve ser removido na versão final
             type={el.type}
             placeholder="Digite aqui"
           />
         </div>
-      )
-    })
-  }
-
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-      <h2 className="text-2xl font-bold mb-4">{props.titulo}</h2>
-      <form action={props.action}>
-        {gerarinputs()}
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
