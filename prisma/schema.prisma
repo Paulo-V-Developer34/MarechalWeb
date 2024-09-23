@@ -15,7 +15,8 @@ datasource db {
 
 model User {
   id String @id @default(cuid())
-  nome String
+  senha String @default("Marechal123@")
+  nome String @unique
   sala String?
   dtativacao DateTime? @default(now())//aqui eu ainda devo melhorar o mecânismo para que ele fique com a data de ativação
   ativo Boolean @default(false)
@@ -32,8 +33,7 @@ model Noticia {
   slug String @unique
   intro String
   content String
-  img String//aqui eu devo modificar
-  author String //aqui deve ser uma PK
+  img String?//aqui eu devo modificar
   dtcriado DateTime @default(now())
   dtmodifica DateTime @default(now()) @map("data_modificado")
   @@index(slug)

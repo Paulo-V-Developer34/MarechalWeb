@@ -1,4 +1,4 @@
-import Form from "@/components/common/Form";
+import Form from "@/components/common/forms/Form-impressora";
 import { title } from "process";
 
 export default async function Impressora() {
@@ -16,7 +16,7 @@ export default async function Impressora() {
     return (
         <section className="w-full flex flex-col items-center mt-10">
             <h1 className="bg-slate-400 p-1 w-full items-center text-[4vw]"><span className="ml-[180px]">Impressora 3D</span></h1>
-            <Form titulo="Agendamento da Impressora" inputs={inputs}/>
+            <Form/>
         </section>
     )
 }
