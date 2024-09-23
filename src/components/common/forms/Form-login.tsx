@@ -42,8 +42,8 @@ export default function Form() {
   //função para verificar os dados com Zod
   const login = async (formData: FormData) => {
     console.log('o form está funcionando')
-    const nome = formData.get('nome') as string
-    const senha = formData.get('senha') as string
+    const nome = formData.get('txt-nome') as string
+    const senha = formData.get('txt-senha') as string
 
     const conta: conta = {
       nome: nome !== null ? nome : '',
