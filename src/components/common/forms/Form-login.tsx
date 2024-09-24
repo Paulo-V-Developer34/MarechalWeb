@@ -1,26 +1,20 @@
-"use client"
+'use client'
 
 import { fazerLogin } from '@/utils/user'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
-
-///////não sei se eu utilizarei essas interfaces novamente (provavelmente não)
-interface input {
-  input: string
-  type: string
-}
-
-interface dados {
-  titulo: string
-  action: (formData: FormData) => Promise<void>
-  inputs: input[]
-}
 
 //interfaces
 export interface conta {
   nome: string
   senha: string
+}
+
+export interface resposta {
+  resultado: boolean
+  error: string
 }
 
 //interface do zod
@@ -29,16 +23,15 @@ const contatype = z.object({
     .string()
     .min(9, { message: 'Seu nome não pode ter menos que 9 caracteres' })
     .max(35, { message: 'Seu nome não pode ter mais que 35 caracteres' }),
-  senha: z
-    .string()
-    .min(8, {
-      message:
-        'Sua senha não pode ter menos que 8 caracteres para garantir a sua segurança!',
-    }),
+  senha: z.string().min(8, {
+    message:
+      'Sua senha não pode ter menos que 8 caracteres para garantir a sua segurança!',
+  }),
 })
 
-
 export default function Form() {
+  const router = useRouter()
+
   //função para verificar os dados com Zod
   const login = async (formData: FormData) => {
     console.log('o form está funcionando')
@@ -46,9 +39,11 @@ export default function Form() {
     const senha = formData.get('txt-senha') as string
 
     const conta: conta = {
-      nome: nome !== null ? nome : '',
-      senha: senha !== null ? nome : '',
+      nome: nome == null ? '' : nome,
+      senha: senha == null ? '' : senha,
     }
+
+    console.log(conta)
 
     const result = contatype.safeParse(conta)
     console.log(result.success)
@@ -64,13 +59,23 @@ export default function Form() {
       toast.error(errorMessage)
     }
 
-    fazerLogin(conta)
+    const resultado = fazerLogin(conta)
+    if ((await resultado).resultado === false) {
+      toast.error((await resultado).error)
+    } else {
+      router.push('/home')
+    }
   }
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold mb-4 p-4">Login</h2>
-      <form action={login}>
+      <form
+        action={evt => {
+          console.log('login ativado')
+          login(evt)
+        }}
+      >
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="nome"
@@ -80,8 +85,8 @@ export default function Form() {
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           // id={(Math.random() * 999999).toString()} //criação de ID //deve ser removido na versão final
-          type='text'
-          name='txt-nome'
+          type="text"
+          name="txt-nome"
           placeholder="Digite seu nome"
         />
         <label
@@ -92,8 +97,8 @@ export default function Form() {
         </label>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          type='text'
-          name='txt-senha'
+          type="text"
+          name="txt-senha"
           placeholder="Digite sua senha"
         />
         <div className="flex items-center justify-between">
