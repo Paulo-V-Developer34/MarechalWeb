@@ -33,6 +33,7 @@ model Noticia {
   slug String @unique
   intro String
   content String
+  nomeautor String
   img String?//aqui eu devo modificar
   dtcriado DateTime @default(now())
   dtmodifica DateTime @default(now()) @map("data_modificado")
