@@ -1,3 +1,5 @@
+import UsuarioLogado from "./usuario";
+
 export default function Nav(){
     return (
         <nav className="bg-gray-800 p-4 fixed top-0 w-full shadow-md">
@@ -20,6 +22,7 @@ export default function Nav(){
                     <a href="#faleconosco">
                         <p className="text-gray-300 hover:text-white">Fale conosco</p>
                     </a>
+                    <UsuarioLogado/>
                 </div>
             </div>
         </nav>

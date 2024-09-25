@@ -1,7 +1,8 @@
 import { getCookies } from '@/utils/session'
 
-export default function UsuarioLogado() {
-  const usuario = async () => await getCookies()
+export default async function UsuarioLogado() {
+  const usuario = await getCookies()
+  console.log(usuario)
 
   return (
     <div>

@@ -102,7 +102,10 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
 export async function getCookies() {
   const session = cookies().get('session')?.value
   if (!session) return null
-  return await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
+  const parsed = await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
+  console.log(parsed)
+  console.log(typeof(parsed))
+  return parsed
 }
 
 //fazer a renovação da sessão
