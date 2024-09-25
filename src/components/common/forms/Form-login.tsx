@@ -1,6 +1,6 @@
 'use client'
 
-import { fazerLogin } from '@/utils/user'
+import { fazerLogin } from '@/utils/session'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
