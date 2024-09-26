@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Roboto", system-ui;
+  font-weight: 100;
+  font-style: normal;
+}
