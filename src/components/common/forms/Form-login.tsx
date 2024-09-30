@@ -70,6 +70,7 @@ export default function Form() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold mb-4 p-4">Login</h2>
+      {/*os tamanhos estão muito grandes ;-;, devo redefinir todos*/}
       <form
         action={evt => {
           console.log('login ativado')

@@ -15,19 +15,19 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('10 sec from now')
+    .setExpirationTime('5m')
     .sign(key)
 }
 //descriptografar
 export async function decript(input: string): Promise<any> {
   console.log(`Entrada do decript: ${input}`)
   console.log(`tipo Entrada do decript: ${typeof input}`)
-  const { payload } = await jwtVerify(input, key, {
+  const payload = await jwtVerify(input, key, {
     //não sei o por que da desestruturação do payload
     algorithms: ['HS256'],
   })
   console.log(`Saída do decript: ${payload}`)
-  console.log(`tipo saída do decript: ${typeof input}`)
+  console.log(`tipo saída do decript: ${typeof payload}`)
   return payload
 }
 
@@ -104,7 +104,7 @@ export async function getCookies() {
   if (!session) return null
   const parsed = await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
   console.log(parsed)
-  console.log(typeof(parsed))
+  console.log(typeof parsed)
   return parsed
 }
 
