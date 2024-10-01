@@ -57,6 +57,7 @@ export default function Form() {
       }
 
       toast.error(errorMessage)
+      return null
     }
 
     const resultado = fazerLogin(conta)

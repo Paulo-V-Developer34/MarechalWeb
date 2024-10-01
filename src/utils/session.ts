@@ -70,8 +70,10 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
       let mensagemErro: string
 
       if (error instanceof Error) {
+        console.log('entrou no if do 2 try catch')
         mensagemErro = error.message
       } else {
+        console.log('entrou no else do 2 try catch')
         mensagemErro = String(error)
       }
 
@@ -85,8 +87,10 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
     let mensagemErro: string
 
     if (error instanceof Error) {
+      console.log('entrou no if do 1 try catch')
       mensagemErro = error.message
     } else {
+      console.log('entrou no else do 1 try catch')
       mensagemErro = String(error)
     }
 
@@ -102,29 +106,30 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
 export async function getCookies() {
   const session = cookies().get('session')?.value
   if (!session) return null
-  const parsed = await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
-  console.log(parsed)
-  console.log(typeof parsed)
-  return parsed
+  const { payload } = await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
+  const { contabd } = payload //ainda tenho que declarar os tipos
+  console.log(contabd)
+  return contabd
 }
 
 //fazer a renovação da sessão
-export async function updateSession(request: NextRequest) {
-  const session = request.cookies.get('session')?.value
+// export async function updateSession(request: NextRequest) {
+//   const session = request.cookies.get('session')?.value
 
-  if (!session) return
+//   if (!session) return
 
-  //renovar sessão //AVISO, nunca esqueça de realizar o "await"
-  const parsed = await decript(session) //seção descriptografada
-  parsed.expires = new Date(Date.now() + 5 * 60 * 1000) //acrescentando mais 10 segundos
-  const res = NextResponse.next() //não sei exatamente para que serve nem como utilizar!!!!! //mas sei que isso avisa ao Next que iremos preparar uma "resposta" da web para o cliente (ou simplismente uma resposta)
-  res.cookies.set('session', await encrypt(parsed), {
-    httpOnly: true,
-    expires: parsed.expires,
-  })
+//   //esse é possívelmente o código que está criando milhares de cookies
+//   //renovar sessão //AVISO, nunca esqueça de realizar o "await"
+//   const parsed = await decript(session) //seção descriptografada
+//   parsed.expires = new Date(Date.now() + 5 * 60 * 1000) //acrescentando mais 10 segundos
+//   const res = NextResponse.next() //não sei exatamente para que serve nem como utilizar!!!!! //mas sei que isso avisa ao Next que iremos preparar uma "resposta" da web para o cliente (ou simplismente uma resposta)
+//   res.cookies.set('session', await encrypt(parsed), {
+//     httpOnly: true,
+//     expires: parsed.expires,
+//   })
 
-  return res
-}
+//   return res
+// }
 
 //variáveis
 const chavesecreta = 'caisdhfiq'

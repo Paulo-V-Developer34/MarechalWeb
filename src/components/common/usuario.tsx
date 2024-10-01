@@ -4,14 +4,22 @@ import { getCookies } from '@/utils/session'
 import { useEffect, useState } from 'react'
 
 export default function UsuarioLogado() {
-  const [usuario, setusuario] = useState<any>('')
+  const [cookies, setCookies] = useState(null)
 
   useEffect(() => {
-    const usuario = async () => await getCookies()
-    setusuario(usuario)
+    async function fetchCookies() {
+      const result = await getCookies()
+      console.log(result.nome)
+      setCookies(result.nome)
+    }
+    fetchCookies()
   }, [])
-
+  console.log(cookies)
   return (
-    <div>{usuario}</div>
-  ) /*talvez como o getCookies retorna um valor eu posso simplismente criar uma async arrow function, mas vou implementar isso depois :D*/
+    <button type="button">
+      <p className="text-gray-300 hover:text-white">
+        Usuário: {cookies ? <>{cookies}</> : 'Carregando...'}
+      </p>
+    </button>
+  )
 }
