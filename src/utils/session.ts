@@ -7,6 +7,13 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
+//interfaces
+interface user {
+  nome: string
+  sala: string | null
+  tipo: number //depois eu irei mudar para string
+}
+
 //CRIPTOGRAFIA
 //encriptografar
 //criar JWT
@@ -107,7 +114,7 @@ export async function getCookies() {
   const session = cookies().get('session')?.value
   if (!session) return null
   const { payload } = await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
-  const { contabd } = payload //ainda tenho que declarar os tipos
+  const { contabd }: { contabd: user } = payload //ainda tenho que declarar os tipos
   console.log(contabd)
   return contabd
 }
