@@ -3,14 +3,26 @@
 import prisma from '@/lib/db'
 import { getCookies } from '@/utils/session'
 import type { Noticia, Prisma } from '@prisma/client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default async function Avisos() {
-  const [noticias, setnoticias] = useState<Noticia[]>()
+// const cookie = getCookies().then //tenho que trocar isso por siglas, por enquanto estou utilizando números
+
+export default function Avisos() {
+  const [noticias, setnoticias] = useState<Promise<Noticia[]>>()
+  const [cookies, setCookies] = useState<Promise<user>>() //tenho que consertar isso
+
+  // useEffect
+  useEffect(() => {
+    const noticiasdb: Promise<Noticia[]> = prisma.noticia.findMany().then()
+    console.log('setnoticias foi ativado!')
+    setnoticias(noticiasdb)
+
+    const cookie = getCookies().then || null
+    setCookies(cookie)
+  })
 
   const noticiasdb = async () => {
-    const noticiasdb: Noticia[] = await prisma.noticia.findMany()
-    setnoticias(noticiasdb)
+    function getnoticias() {}
   }
   //simulando os dados do cookie
   //simulando a API
@@ -51,8 +63,6 @@ export default async function Avisos() {
   //     modifiedat: new Date('2024-09-22'),
   //   },
   // ]
-
-  const cookie = await getCookies() //tenho que trocar isso por siglas, por enquanto estou utilizando números
 
   return (
     <section className="w-full flex flex-col items-center mt-10">
