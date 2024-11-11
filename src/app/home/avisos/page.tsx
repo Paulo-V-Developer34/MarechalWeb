@@ -1,5 +1,3 @@
-'use client'
-
 import prisma from '@/lib/db'
 import { getCookies } from '@/utils/session'
 import type { Noticia, Prisma } from '@prisma/client'
@@ -7,23 +5,25 @@ import { useEffect, useState } from 'react'
 
 // const cookie = getCookies().then //tenho que trocar isso por siglas, por enquanto estou utilizando números
 
-export default function Avisos() {
-  const [noticias, setnoticias] = useState<Promise<Noticia[]>>()
-  const [cookies, setCookies] = useState<Promise<user>>() //tenho que consertar isso
+export default async function Avisos() {
 
-  // useEffect
-  useEffect(() => {
-    const noticiasdb: Promise<Noticia[]> = prisma.noticia.findMany().then()
-    console.log('setnoticias foi ativado!')
-    setnoticias(noticiasdb)
+        // const [noticias, setnoticias] = useState<Promise<Noticia[]>>()
+        // const [cookies, setCookies] = useState<Promise<user>>() //tenho que consertar isso
+  //esses códigos estavam sendo utilizados na versão "use client"
+        // // useEffect
+        // useEffect(() => {
+        //   const noticiasdb: Promise<Noticia[]> = prisma.noticia.findMany().then()
+        //   console.log('setnoticias foi ativado!')
+        //   setnoticias(noticiasdb)
 
-    const cookie = getCookies().then || null
-    setCookies(cookie)
-  })
+        //   const cookie = getCookies().then || null
+        //   setCookies(cookie)
+        // })
+  //////////////////
 
-  const noticiasdb = async () => {
-    function getnoticias() {}
-  }
+
+  const noticiasdb: Noticia[] = await prisma.noticia.findMany()
+  const cookie = await getCookies()
   //simulando os dados do cookie
   //simulando a API
   // const noticias = [
@@ -70,7 +70,7 @@ export default function Avisos() {
         <span className="ml-[180px]">Avisos</span>
       </h1>
       <div className="grid grid-cols-2 gap-5 items-center w-4/5">
-        {noticias?.map((el, i) => {
+        {noticiasdb?.map((el, i) => {
           return (
             <section
               key={el.slug}
@@ -79,7 +79,7 @@ export default function Avisos() {
               <div className="flex justify-between">
                 <div className="flex w-5/6">
                   <h1>{el.title}</h1>
-                  <h2>{el.nomeautor}</h2>
+                  <h2>Nome autor</h2>
                 </div>
                 <div>
                   <button
