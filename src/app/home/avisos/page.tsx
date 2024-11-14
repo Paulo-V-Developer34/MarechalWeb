@@ -1,29 +1,35 @@
+'use client'
+
 import prisma from '@/lib/db'
-import { getCookies } from '@/utils/session'
+import { getCookies, type user } from '@/utils/session'
 import type { Noticia, Prisma } from '@prisma/client'
 import { useEffect, useState } from 'react'
 
 // const cookie = getCookies().then //tenho que trocar isso por siglas, por enquanto estou utilizando números
 
 export default async function Avisos() {
-
-        // const [noticias, setnoticias] = useState<Promise<Noticia[]>>()
-        // const [cookies, setCookies] = useState<Promise<user>>() //tenho que consertar isso
+  const [noticias, setnoticias] = useState<Noticia[]>()
+  const [cookies, setCookies] = useState<user | null>() //tenho que consertar isso
   //esses códigos estavam sendo utilizados na versão "use client"
-        // // useEffect
-        // useEffect(() => {
-        //   const noticiasdb: Promise<Noticia[]> = prisma.noticia.findMany().then()
-        //   console.log('setnoticias foi ativado!')
-        //   setnoticias(noticiasdb)
 
-        //   const cookie = getCookies().then || null
-        //   setCookies(cookie)
-        // })
+  // useEffect
+  useEffect(() => {
+    prisma.noticia.findMany().then(retorno => {
+      console.log('setnoticias foi ativado!')
+      setnoticias(retorno)
+    })
+
+    getCookies().then(retorno => {
+      setCookies(retorno)
+    })
+  }, [])
   //////////////////
 
+  //////código para caso o código seja server-side
+  // const noticiasdb: Noticia[] = await prisma.noticia.findMany()
+  // const cookie = await getCookies()
+  /////////////////////////////
 
-  const noticiasdb: Noticia[] = await prisma.noticia.findMany()
-  const cookie = await getCookies()
   //simulando os dados do cookie
   //simulando a API
   // const noticias = [
@@ -70,7 +76,7 @@ export default async function Avisos() {
         <span className="ml-[180px]">Avisos</span>
       </h1>
       <div className="grid grid-cols-2 gap-5 items-center w-4/5">
-        {noticiasdb?.map((el, i) => {
+        {noticias?.map((el, i) => {
           return (
             <section
               key={el.slug}
@@ -108,13 +114,22 @@ export default async function Avisos() {
       </div>
       {
         /* preciso colocar uma condicional que permitirá que apenas ADMs possam ver certos botões */
-        cookie?.tipo === 3 && (
-          <button
-            type="button"
-            className="fixed bottom-5 right-5 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center text-2xl hover:bg-blue-700"
-          >
-            Add
-          </button>
+        cookies?.tipo === 3 && (
+          <>
+            <div id="testdiv" className="hidden">
+              <h1>Bom dia!!!</h1>
+            </div>
+            <button
+              onClick={() => {
+                const minhadiv = document.querySelector('#testdiv')
+                minhadiv?.setAttribute('className', 'red')
+              }}
+              type="button"
+              className="fixed bottom-5 right-5 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center text-2xl hover:bg-blue-700"
+            >
+              Add
+            </button>
+          </>
         )
       }
     </section>
