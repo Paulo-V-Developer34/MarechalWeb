@@ -8,7 +8,7 @@ import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
 //interfaces
-interface user {
+export interface user {
   nome: string
   sala: string | null
   tipo: number //depois eu irei mudar para string
@@ -64,7 +64,9 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
       const session = await encrypt({ contabd, expires })
 
       //criar cookie
-      cookies().set('session', session, { expires, httpOnly: true })
+      ;(await
+        //criar cookie
+        cookies()).set('session', session, { expires, httpOnly: true })
 
       //redirecionamento para a página principal
       const respota: resposta = {
