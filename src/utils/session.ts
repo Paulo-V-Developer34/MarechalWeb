@@ -111,7 +111,7 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
 
 //pegar o cookie
 export async function getCookies() {
-  const session = cookies().get('session')?.value
+  const session = (await cookies()).get('session')?.value
   if (!session) return null
   const { payload } = await decript(session) //não gostei de estar trabalhando com um valor que pode ser possívelmente nulo em typescript que é uma linguagem fortemente tipada
   const { contabd }: { contabd: user } = payload //ainda tenho que declarar os tipos

@@ -2,6 +2,7 @@ import prisma from '@/lib/db'
 import { getCookies } from '@/utils/session'
 import type { Noticia, Prisma } from '@prisma/client'
 import { useEffect, useState } from 'react'
+import AdmButtons from '@/components/home/avisos/AdmButtons'
 
 // const cookie = getCookies().then //tenho que trocar isso por siglas, por enquanto estou utilizando números
 
@@ -109,12 +110,7 @@ export default async function Avisos() {
       {
         /* preciso colocar uma condicional que permitirá que apenas ADMs possam ver certos botões */
         cookie?.tipo === 3 && (
-          <button
-            type="button"
-            className="fixed bottom-5 right-5 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center text-2xl hover:bg-blue-700"
-          >
-            Add
-          </button>
+          <AdmButtons/>
         )
       }
     </section>
