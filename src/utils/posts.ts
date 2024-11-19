@@ -1,32 +1,46 @@
+"use server"//nunca se esqueça de usar "use server" caso você não queira ter muita dor de cabeça ;-;
+
 import prisma from "@/lib/db"
-import { getCookies } from "./session"
+import type { AddNoticia } from "@/components/home/avisos/AddNoticiaForm"
+import { revalidatePath } from "next/cache"
 
-export async function postar(formData:FormData) {
-    // eu devo consertar isso aqui
-    // erro: eu devo usar o ID, contudo o cookie não possui o ID do usuário (ainda)
-
-    // const user = await getCookies()
-    // console.log("get cookies ativado")
-    // console.log(user)
-    // console.log(`Seu ID é ${user?.user.id}`)
-
-
+export async function postar(noticia: AddNoticia) {
     try {
         console.log("um post foi feito!")
-    await prisma.noticia.create({
-        data: {
-            // não irei utilizar form agora
-            // title: formData.get("title") as string,
-            // slug: (formData.get("title") as string)
-            //         .replace(/\s+/g,"-")
-            //         .toLowerCase(),
-            // content: formData.get("content") as string,
-
-            content: "Estou testando a postagem de novas notícias"
-            autorId: {
-                connect: {
-                    email: user.user.gmail
-                }
+        await prisma.noticia.create({
+            data: {
+                title: noticia.titulo,
+                slug: (noticia.titulo)
+                .replace(/\s+/g,"-")
+                .toLowerCase(),
+                intro: noticia.introducao,
+                content: noticia.texto,
+                // autorId: noticia.authorid,
+                Autor: {
+                    connect: {
+                        id: noticia.authorid
+                    }
+                },
+                nomeautor: noticia.author 
             }
-        }
-})
+        })
+        revalidatePath('/home/avisos')
+    } catch(error) {
+        console.log(`Algo deu errado ao tentar criar um post, erro: ${error}`)
+    }
+}
+
+//deletar comentário
+export async function deletar(id: string) {
+    try {
+        console.log("um post foi feito!")
+        await prisma.noticia.delete({
+            where: {
+                id: id
+            }
+        })
+        revalidatePath('/home/avisos')
+    } catch(error) {
+        console.log(`Algo deu errado ao tentar criar um post, erro: ${error}`)
+    }
+}
