@@ -62,7 +62,6 @@ export default function Form() {
             Enviar
           </button>
         </div>
-        <Link href={'./home'}>Link temporário</Link>
       </form>
     </div>
   )

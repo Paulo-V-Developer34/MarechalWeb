@@ -1,7 +1,7 @@
 "use server"//nunca se esqueça de usar "use server" caso você não queira ter muita dor de cabeça ;-;
 
 import prisma from "@/lib/db"
-import type { AddNoticia } from "@/components/home/avisos/AddNoticiaForm"
+import type { AddNoticia } from "@/components/avisos/AddNoticiaForm"
 import { revalidatePath } from "next/cache"
 
 export async function postar(noticia: AddNoticia) {

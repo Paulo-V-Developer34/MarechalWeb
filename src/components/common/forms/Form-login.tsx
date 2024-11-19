@@ -23,7 +23,7 @@ const contatype = z.object({
     .string()
     .min(9, { message: 'Seu nome não pode ter menos que 9 caracteres' })
     .max(35, { message: 'Seu nome não pode ter mais que 35 caracteres' }),
-  senha: z.string().min(8, {
+  senha: z.string().min(4, {
     message:
       'Sua senha não pode ter menos que 8 caracteres para garantir a sua segurança!',
   }),
@@ -46,8 +46,6 @@ export default function Form() {
     console.log(conta)
 
     const result = contatype.safeParse(conta)
-    console.log(result.success)
-    console.log(result)
 
     if (!result.success) {
       let errorMessage = '' //se eu apenas declara-lo como string ele me retornará um erro

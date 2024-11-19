@@ -18,7 +18,7 @@ export default function Impressora() {
           impressão do modelo e agende uma data
         </p>
         <Link
-          href="/home/impressora"
+          href="/impressora"
           className="flex flex-row-reverse w-full h-full"
         >
           <button

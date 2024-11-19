@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import UsuarioLogado from './usuario'
+import AdmNav from './AdmNav'
 
 export default function Nav() {
   const pathname = usePathname()
@@ -16,7 +17,7 @@ export default function Nav() {
         </div>
         <div className="flex space-x-4">
           {/* links */}
-          <div className={`${pathname !== '/home' && 'hidden'} flex`}>
+          <div className={`${pathname !== '/home' && 'hidden'} flex gap-[8vw]`}>
             <a href="#avisos">
               <p className="text-gray-300 hover:text-white">Avisos</p>
             </a>
@@ -26,11 +27,11 @@ export default function Nav() {
             <a href="#impressora">
               <p className="text-gray-300 hover:text-white">Impressora 3D</p>
             </a>
+            <AdmNav/>
             <a href="#faleconosco">
               <p className="text-gray-300 hover:text-white">Fale conosco</p>
             </a>
           </div>
-
           <UsuarioLogado />
         </div>
       </div>

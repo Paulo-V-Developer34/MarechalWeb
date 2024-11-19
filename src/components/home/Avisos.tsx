@@ -18,7 +18,7 @@ export default function Avisos() {
         </p>
         <Slideshow />
         <Link
-          href="/home/avisos"
+          href="/avisos"
           className="flex flex-row-reverse w-full h-full"
         >
           <button

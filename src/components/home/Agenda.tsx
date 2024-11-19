@@ -16,7 +16,7 @@ export default function Agenda() {
           escola com o intuito da realização de estudos, pesquisas e projetos.
         </p>
         <Link
-          href="./Agenda/Agenda"
+          href="/Agenda"
           className="flex flex-row-reverse w-full h-full"
         >
           <button
