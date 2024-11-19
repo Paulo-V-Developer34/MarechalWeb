@@ -27,7 +27,7 @@ export default function Nav() {
             <a href="#impressora">
               <p className="text-gray-300 hover:text-white">Impressora 3D</p>
             </a>
-            <AdmNav/>
+            {/* <AdmNav/> */}
             <a href="#faleconosco">
               <p className="text-gray-300 hover:text-white">Fale conosco</p>
             </a>
