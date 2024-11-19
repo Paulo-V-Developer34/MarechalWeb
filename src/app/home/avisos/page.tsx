@@ -2,6 +2,7 @@ import prisma from '@/lib/db'
 import { getCookies } from '@/utils/session'
 import type { Noticia } from '@prisma/client'
 import AdmButtons from '@/components/home/avisos/AdmButtons'
+import NoticiaBtn from '@/components/home/avisos/NoticiaBtn'
 
 export default async function Avisos() {
   //////código para caso o código seja server-side
@@ -79,6 +80,13 @@ export default async function Avisos() {
                   <button type="button" className="w-2 h-2">
                     ed
                   </button> */}
+
+                  {/* substitutos */}
+                  {
+                    cookie?.tipo === 3 && (
+                      <NoticiaBtn props={el.id}/>
+                    )
+                  }
                 </div>
               </div>
               <h2>{el.intro}</h2>
@@ -92,7 +100,6 @@ export default async function Avisos() {
         })}
       </div>
       {
-        /* preciso colocar uma condicional que permitirá que apenas ADMs possam ver certos botões */
         cookie?.tipo === 3 && (
           <AdmButtons/>
         )
