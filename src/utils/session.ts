@@ -37,20 +37,57 @@ export async function decript(input: string): Promise<any> {
 //fazer login
 export async function fazerLogin(conta: conta): Promise<resposta> {
   try {
-    const contabd = await prisma.user.findUnique({
-      where: {
-        nome: conta.nome,
-        senha: conta.senha,
-      },
-      select: {
-        nome: true,
-        sala: true,
-        tipo: true,
-        id: true
-      },
-    })
+    ////////CÓDIGO DE DEBUG////////
+    ////essa declaração não deve ficar assim na versão final, ela deve ser uma constante criada apenas pelo BD
+    let contabd: user | null = {
+      nome: "null",
+      sala: null,
+      tipo: 1,
+      id: "semconta"
+    }
 
+    if(conta.senha == "teste") {
+      contabd = {
+        nome: conta.nome,
+        sala: '3NT',
+        tipo: 1,
+        id: "contateste"
+      }
+    } else if(conta.senha == "teste2") {
+      contabd = {
+        nome: conta.nome,
+        sala: null,
+        tipo: 3,
+        id: "contateste2"
+      }
+    } else {
+      ///////////////////////////////////
+      // const contabd: user | null = await prisma.user.findUnique({
+      contabd = await prisma.user.findUnique({
+        where: {
+          nome: conta.nome,
+          senha: conta.senha,
+        },
+        select: {
+          nome: true,
+          sala: true,
+          tipo: true,
+          id: true
+        },
+      })
+    }
+    
     try {
+      //////////DEBUG////////////
+      if(contabd?.nome == "null" || null) {
+        const resposta: resposta = {
+          error: "usuário inválido",
+          resultado: false,
+        }
+        return resposta
+      }
+      ///////////////////////////
+
       //removerei este try catch de dentro de outro try catch o mais cedo possível
       //criar sessão
 
