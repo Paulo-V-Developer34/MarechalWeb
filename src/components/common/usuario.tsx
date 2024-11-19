@@ -1,16 +1,16 @@
 'use client'
 
-import { getCookies } from '@/utils/session'
+import { getCookies, user } from '@/utils/session'
 import { useEffect, useState } from 'react'
 
 export default function UsuarioLogado() {
-  const [cookies, setCookies] = useState(null)
+  const [cookies, setCookies] = useState<user|null>(null)
 
   useEffect(() => {
     async function fetchCookies() {
       const result = await getCookies()
-      console.log(result.nome)
-      setCookies(result.nome)
+      console.log(result?.nome || "desconectado")
+      setCookies(result?.nome || {nome: "null",id: "null",sala: null, tipo: 1})//devemos resolver este problema rápido
     }
     fetchCookies()
   }, [])

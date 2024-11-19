@@ -1,16 +1,18 @@
 import { getCookies } from "@/utils/session";
 
-export default async function AdmNav() {
-    const cookies = await getCookies()
+export default function AdmNav() {
+    
     return (
         <>
-            {cookies?.tipo == 3 && (
-                <>
-                    <a href="#alunos">
-                        <p className="text-gray-300 hover:text-white">Alunos</p>
-                    </a>
-                </>
-            )}
+            {getCookies().then((evt)=>{
+                evt?.tipo == 3 && (
+                    <>
+                        <a href="#alunos">
+                            <p className="text-gray-300 hover:text-white">Alunos</p>
+                        </a>
+                    </>
+                )
+            })}
         </>
     )
 }
