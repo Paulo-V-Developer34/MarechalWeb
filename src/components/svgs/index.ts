@@ -1,1 +1,0 @@
-// export {default as seta} from "./seta.svg"
