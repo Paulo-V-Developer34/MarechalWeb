@@ -12,13 +12,13 @@ export interface user {
   nome: string
   sala: string | null
   tipo: number //depois eu irei mudar para string
+  id: string
 }
 
 //CRIPTOGRAFIA
 //encriptografar
 //criar JWT
 export async function encrypt(payload: any) {
-  console.log(`Entrada do encrypt: ${payload}`)
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -27,20 +27,15 @@ export async function encrypt(payload: any) {
 }
 //descriptografar
 export async function decript(input: string): Promise<any> {
-  console.log(`Entrada do decript: ${input}`)
-  console.log(`tipo Entrada do decript: ${typeof input}`)
   const payload = await jwtVerify(input, key, {
     //não sei o por que da desestruturação do payload
     algorithms: ['HS256'],
   })
-  console.log(`Saída do decript: ${payload}`)
-  console.log(`tipo saída do decript: ${typeof payload}`)
   return payload
 }
 
 //fazer login
 export async function fazerLogin(conta: conta): Promise<resposta> {
-  console.log('login acionado')
   try {
     const contabd = await prisma.user.findUnique({
       where: {
@@ -51,6 +46,7 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
         nome: true,
         sala: true,
         tipo: true,
+        id: true
       },
     })
 
@@ -58,8 +54,6 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
       //removerei este try catch de dentro de outro try catch o mais cedo possível
       //criar sessão
 
-      console.log('sua conta foi achada')
-      console.log(contabd)
       const expires = new Date(Date.now() + 5 * 60 * 1000)
       const session = await encrypt({ contabd, expires })
 
@@ -73,16 +67,14 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
         error: '',
         resultado: true,
       }
-
+      console.log('login feito')
       return respota
     } catch (error) {
       let mensagemErro: string
 
       if (error instanceof Error) {
-        console.log('entrou no if do 2 try catch')
         mensagemErro = error.message
       } else {
-        console.log('entrou no else do 2 try catch')
         mensagemErro = String(error)
       }
 
