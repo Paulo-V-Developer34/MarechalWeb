@@ -1,11 +1,12 @@
 import UsuarioLogado from './usuario'
 import AdmNav from './AdmNav'
 import { getCookies } from '@/utils/session'
-import { GetServerSideProps } from 'next'
+import { header_url } from '@/app/layout'
 
-export default async function Nav({pathname}: {pathname: string}) {
+export default async function Nav() {
   const cookies = await getCookies()
-  console.log(`Sua localização é: ${pathname}`)
+  console.log(`Sua localização é: ${header_url}`)
+  console.log(`Sua conta no home page é ${cookies}`)
 
   return (
     <nav className="bg-gray-800 p-4 fixed top-0 w-full shadow-md">
@@ -17,7 +18,7 @@ export default async function Nav({pathname}: {pathname: string}) {
         </div>
         <div className="flex space-x-4">
           {/* links */}
-          <div className={`${pathname !== '/home' && 'hidden'} flex gap-[8vw]`}>
+          <div className={`${header_url !== '/home' && 'hidden'} flex gap-[8vw]`}>
             <a href="#avisos">
               <p className="text-gray-300 hover:text-white">Avisos</p>
             </a>
@@ -40,13 +41,14 @@ export default async function Nav({pathname}: {pathname: string}) {
   )
 }
 
-export const GetSSProps: GetServerSideProps = async (context)=>{
-  const { resolvedUrl } = context
-  const pathname: string = resolvedUrl || '/'
+//esse código não funcionou
+// export const GetSSProps: GetServerSideProps = async (context)=>{
+//   const { req } = context
+//   const pathname: string = req.url || '/'
 
-  return {
-    props: {
-      pathname
-    }
-  }
-}
+//   return {
+//     props: {
+//       pathname
+//     }
+//   }
+// }
