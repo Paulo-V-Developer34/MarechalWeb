@@ -33,8 +33,8 @@ const initialUsers: Prisma.UserCreateInput[] = [
 
 const initialNoticias: Prisma.NoticiaCreateInput[] = [
   {
-    title: 'Notícia muito interessante',
-    slug: 'noticia-muito-interessante',
+    title: 'Notícia interessante',
+    slug: 'noticia-interessante',
     intro:
       'Essa notícia é a mais incrível de todas as notícias que você já viu na vida',
     content:
@@ -52,8 +52,8 @@ const initialNoticias: Prisma.NoticiaCreateInput[] = [
     },
   },
   {
-    title: 'Notícia muito interessante pt2',
-    slug: 'noticia-muito-interessante-pt2',
+    title: 'Notícia interessante pt2',
+    slug: 'noticia-interessante-pt2',
     intro:
       'Essa notícia é a mais incrível de todas as notícias que você já viu na vida',
     content:
@@ -71,8 +71,8 @@ const initialNoticias: Prisma.NoticiaCreateInput[] = [
     },
   },
   {
-    title: 'Notícia muito interessante pt3',
-    slug: 'noticia-muito-interessante-pt3',
+    title: 'Notícia interessante pt3',
+    slug: 'noticia interessante-pt3',
     intro:
       'Essa notícia é a mais incrível de todas as notícias que você já viu na vida',
     content:

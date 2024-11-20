@@ -1,11 +1,11 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
 import UsuarioLogado from './usuario'
 import AdmNav from './AdmNav'
+import { getCookies } from '@/utils/session'
+import { GetServerSideProps } from 'next'
 
-export default function Nav() {
-  const pathname = usePathname()
+export default async function Nav({pathname}: {pathname: string}) {
+  const cookies = await getCookies()
+  console.log(`Sua localização é: ${pathname}`)
 
   return (
     <nav className="bg-gray-800 p-4 fixed top-0 w-full shadow-md">
@@ -27,7 +27,8 @@ export default function Nav() {
             <a href="#impressora">
               <p className="text-gray-300 hover:text-white">Impressora 3D</p>
             </a>
-            <AdmNav/>
+
+            {cookies?.tipo === 3 && (<AdmNav/>)}
             <a href="#faleconosco">
               <p className="text-gray-300 hover:text-white">Fale conosco</p>
             </a>
@@ -37,4 +38,15 @@ export default function Nav() {
       </div>
     </nav>
   )
+}
+
+export const GetSSProps: GetServerSideProps = async (context)=>{
+  const { resolvedUrl } = context
+  const pathname: string = resolvedUrl || '/'
+
+  return {
+    props: {
+      pathname
+    }
+  }
 }

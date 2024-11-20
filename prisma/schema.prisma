@@ -1,15 +1,26 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+// see this later to deploy your database with securit
+// https://www.prisma.io/docs/orm/overview/databases/postgresql#configuring-an-ssl-connection
+
 
 generator client {
   provider = "prisma-client-js"
 }
 
+//DB de produção
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+//DB local
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite" //não podemos usar o "env()" aqui ;-;
   url      = env("DATABASE_URL")
 }
 
@@ -27,9 +38,11 @@ model User {
   msgaluno Msgaluno[]
 }
 
+//eu devo aumentar a capacidade, mas o SQLite não me permite especificar, para isso eu deveria utilizar o 
+// @db.VarChar(numerodecaracteres)
 model Noticia {
   id String @id @default(cuid())
-  title String
+  title String 
   slug String @unique
   intro String
   content String

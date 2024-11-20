@@ -4,13 +4,13 @@ import { getCookies, user } from '@/utils/session'
 import { useEffect, useState } from 'react'
 
 export default function UsuarioLogado() {
-  const [cookies, setCookies] = useState<user|null>(null)
+  const [cookies, setCookies] = useState<string |null>(null)
 
   useEffect(() => {
     async function fetchCookies() {
       const result = await getCookies()
       console.log(result?.nome || "desconectado")
-      setCookies(result?.nome || {nome: "null",id: "null",sala: null, tipo: 1})//devemos resolver este problema rápido
+      setCookies(result?.nome || null)//devemos resolver este problema rápido
     }
     fetchCookies()
   }, [])
