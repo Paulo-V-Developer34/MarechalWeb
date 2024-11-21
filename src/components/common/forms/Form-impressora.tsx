@@ -1,10 +1,16 @@
 import PedirImpressora from '@/utils/impressoraForm'
 
 export default function Form() {
+
+  //Como eu não posso passar uma função de servidor diretamente eu a passarei por aqui
+  function pedir(formData: FormData) {
+    PedirImpressora(formData)
+  }
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold mb-4 p-4">Agendamento da Impressora</h2>
-      <form action={evt => PedirImpressora(evt)}>
+      <form action={async evt => pedir(evt)}>
         {/*preciso urgentemente adicionar uma action aqui */}
         <label
           className="block text-gray-700 text-sm font-bold mb-2"

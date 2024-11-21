@@ -24,7 +24,7 @@ export async function postar(noticia: AddNoticia) {
                 nomeautor: noticia.author 
             }
         })
-        revalidatePath('/home/avisos')
+        revalidatePath('/avisos')
     } catch(error) {
         console.log(`Algo deu errado ao tentar criar um post, erro: ${error}`)
     }
