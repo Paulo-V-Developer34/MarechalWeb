@@ -24,16 +24,16 @@ export const metadata: Metadata = {
 }
 
 //pegando o url do middleware
-  const headersList = await headers()
-  export const header_url = headersList.get("x-url") || "/"
+const headersList = await headers()
+const header_url = headersList.get('x-url') || 'http://localhost:3000/'
+export const urlpath = header_url.substring(21)
 
-export default async function RootLayout({//queria saber se é uma boa ideia eu ficar colocando async em quase tudo :/
+export default async function RootLayout({
+  //queria saber se é uma boa ideia eu ficar colocando async em quase tudo :/
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  
-
   return (
     <html lang="en">
       <head>
@@ -55,8 +55,15 @@ export default async function RootLayout({//queria saber se é uma boa ideia eu 
         />
 
         {/* JQuery */}
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossOrigin="anonymous"></script>
+        <link
+          rel="stylesheet"
+          href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css"
+        />
+        <script
+          src="https://code.jquery.com/jquery-3.7.1.js"
+          integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

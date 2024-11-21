@@ -1,11 +1,11 @@
 import UsuarioLogado from './usuario'
 import AdmNav from './AdmNav'
 import { getCookies } from '@/utils/session'
-import { header_url } from '@/app/layout'
+import { urlpath } from '@/app/layout'
 
 export default async function Nav() {
   const cookies = await getCookies()
-  console.log(`Sua localização é: ${header_url}`)
+  console.log(`Sua localização é: ${urlpath}`)
   console.log(`Sua conta no home page é ${cookies}`)
 
   return (
@@ -18,7 +18,7 @@ export default async function Nav() {
         </div>
         <div className="flex space-x-4">
           {/* links */}
-          <div className={`${header_url !== '/home' && 'hidden'} flex gap-[8vw]`}>
+          <div className={`${urlpath !== '/home' && 'hidden'} flex gap-[8vw]`}>
             <a href="#avisos">
               <p className="text-gray-300 hover:text-white">Avisos</p>
             </a>
@@ -29,7 +29,7 @@ export default async function Nav() {
               <p className="text-gray-300 hover:text-white">Impressora 3D</p>
             </a>
 
-            {cookies?.tipo === 3 && (<AdmNav/>)}
+            {cookies?.tipo === 3 && <AdmNav />}
             <a href="#faleconosco">
               <p className="text-gray-300 hover:text-white">Fale conosco</p>
             </a>
