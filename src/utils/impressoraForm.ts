@@ -3,6 +3,7 @@
 import prisma from '@/lib/db'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
+import { getCookies } from './session'
 
 interface PedidoImp {
   nome: string
@@ -10,7 +11,13 @@ interface PedidoImp {
   descricao: string
 }
 
-export default function PedirImpressora(formData: FormData) {
+export default async function PedirImpressora(formData: FormData) {
+  const cookie = await getCookies()
+  if (!cookie) {
+    // O middleware vai fazer isso para mim
+    // toast.error('Sua sessão expirou')
+    return null
+  }
   const pedidotype = z.object({
     nome: z
       .string()
@@ -68,9 +75,21 @@ export default function PedirImpressora(formData: FormData) {
   //   } else {
   //     router.push('/home')
   //   }
-  prisma.pedidoImpressora.create({
-    data: {
-      motivo: pedido.motivo,
-    },
-  })
+  try {
+    prisma.pedidoImpressora.create({
+      data: {
+        motivo: pedido.motivo,
+        objcriado: pedido.descricao,
+        nomeproj: pedido.nome,
+        Autor: {
+          connect: {
+            id: cookie.id,
+          },
+        },
+      },
+    })
+    toast.success('Pedido realizado com sucesso!')
+  } catch (error) {
+    toast.error(`O erro ${error} ocorreu`)
+  }
 }
