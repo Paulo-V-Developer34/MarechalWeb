@@ -1,8 +1,30 @@
+# Marechal Web
+
+Esse é um site que promove projetos educacionais dentro da escola.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Iniciando o projeto
 
-First, run the development server:
+### Instale as dependências
+
+Para instalar as dependências (com o npm, caso você utilize **outro gerenciador de dependências** pode ser necessário executar outro comando) execute:
+
+```bash
+npm i
+```
+
+### Crie o arquivo .env
+
+Para que a conexão do BD funcione você deve:
+
+1. Duplicar o arquivo .env.example
+2. Renomealo para .env
+3. Substituir os dados para corresponderem ao seu BD
+
+### Inicie o Servidor Web
+
+Para que o seu projeto comece a funcionar é necessário que você utilize um dos seguintes comandos para iniciar o servidor:
 
 ```bash
 npm run dev
@@ -14,7 +36,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra o link gerado no terminal para que você possa ver o projeto funcionando no seu navegador, normalmente é [http://localhost:3000](http://localhost:3000).
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
