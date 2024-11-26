@@ -1,5 +1,7 @@
 import PedirImpressora from '@/utils/impressoraForm'
 
+// https://www.youtube.com/watch?v=RadgkoJrhu0&t=800s //access this link to learn about how to fix this error
+
 export default function Form() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
