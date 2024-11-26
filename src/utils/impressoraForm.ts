@@ -11,7 +11,7 @@ interface PedidoImp {
   descricao: string
 }
 
-export default async function PedirImpressora(formData: FormData) {
+export const PedirImpressora = async (formData: FormData) => {
   const cookie = await getCookies()
   if (!cookie) {
     // O middleware vai fazer isso para mim
