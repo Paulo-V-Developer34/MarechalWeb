@@ -3,6 +3,8 @@ import { getCookies } from '@/utils/session'
 import type { Noticia } from '@prisma/client'
 import AdmButtons from '@/components/avisos/AdmButtons'
 import NoticiaBtn from '@/components/avisos/NoticiaBtn'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default async function Avisos() {
   //////código para caso o código seja server-side
@@ -51,59 +53,54 @@ export default async function Avisos() {
   // ]
 
   return (
-    <section className="w-full flex flex-col items-center mt-10">
-      <h1 className="bg-slate-400 p-1 w-full items-center text-[4vw]">
-        <span className="ml-[180px]">Avisos</span>
-      </h1>
+    <>
       <div className="grid grid-cols-2 gap-5 items-center w-4/5">
         {noticiasdb?.map((el, i) => {
           return (
-            <section
-              key={el.slug}
-              className="bg-slate-400 rounded shadow-md w-2/5 p-1 m-2"
-            >
-              <div className="flex justify-between">
-                <div className="flex w-5/6">
-                  <h1>{el.title}</h1>
-                  <h2>Nome autor</h2>
-                </div>
-                <div>
-                  {/* <button
-                    type="button"
-                    className="w-2 h-2"
-                    onClick={() =>
-                      prisma.noticia.delete({ where: { id: el.id } })
-                    }
-                  >
-                    lx
-                  </button>
-                  <button type="button" className="w-2 h-2">
-                    ed
-                  </button> */}
+            <Link href={`/avisos/${el.slug}`} key={el.slug}>
+              <section className="bg-slate-400 rounded shadow-md w-2/5 p-1 m-2">
+                <h1>{el.title}</h1>
+                <Image
+                  src={'/enem.png'}
+                  width={160}
+                  height={90}
+                  alt="Imagem de representação"
+                  className="w-11/12 rounded-md"
+                />
+                <div className="flex justify-between">
+                  {/* <div className="flex w-5/6">
+                    <h2>Nome autor</h2>
+                  </div> */}
+                  <div>
+                    {/* <button
+                      type="button"
+                      className="w-2 h-2"
+                      onClick={() =>
+                        prisma.noticia.delete({ where: { id: el.id } })
+                      }
+                    >
+                      lx
+                    </button>
+                    <button type="button" className="w-2 h-2">
+                      ed
+                    </button> */}
 
-                  {/* substitutos */}
-                  {
-                    cookie?.tipo === 3 && (
-                      <NoticiaBtn props={el.id}/>
-                    )
-                  }
+                    {/* substitutos */}
+                    {cookie?.tipo === 3 && <NoticiaBtn props={el.id} />}
+                  </div>
                 </div>
-              </div>
-              <h2>{el.intro}</h2>
-              <p>{el.content}</p>
-              <div className="flex flex-row-reverse">
-                <p>{el.dtmodifica.toString()}</p>
-                <p>{el.dtcriado.toString()}</p>
-              </div>
-            </section>
+                <p>{el.intro}</p>
+                {/* <p>{el.content}</p> */}
+                <div className="flex flex-row-reverse">
+                  {/* <p>{el.dtmodifica.toString()}</p> */}
+                  <p>{el.dtcriado.toString()}</p>
+                </div>
+              </section>
+            </Link>
           )
         })}
       </div>
-      {
-        cookie?.tipo === 3 && (
-          <AdmButtons/>
-        )
-      }
-    </section>
+      {cookie?.tipo === 3 && <AdmButtons />}
+    </>
   )
 }
