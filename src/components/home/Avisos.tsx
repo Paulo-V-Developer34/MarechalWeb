@@ -3,10 +3,7 @@ import Slideshow from '../common/Slideshow'
 
 export default function Avisos() {
   return (
-    <section
-      id="avisos"
-      className="w-full flex flex-col items-center mt-10 mb-8"
-    >
+    <section id="avisos" className="w-full flex flex-col items-center mb-8">
       <h1 className="bg-slate-400 p-1 w-full items-center text-[4vw]">
         <span className="ml-[180px]">Avisos</span>
       </h1>
@@ -17,10 +14,7 @@ export default function Avisos() {
           Aqui você tem acesso às notícias mais atuais da escola
         </p>
         <Slideshow />
-        <Link
-          href="/avisos"
-          className="flex flex-row-reverse w-full h-full"
-        >
+        <Link href="/avisos" className="flex flex-row-reverse w-full h-full">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline right-1/4 text-4xl"
             type="button"

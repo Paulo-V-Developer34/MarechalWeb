@@ -40,25 +40,25 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
     ////////CÓDIGO DE DEBUG////////
     ////essa declaração não deve ficar assim na versão final, ela deve ser uma constante criada apenas pelo BD
     let contabd: user | null = {
-      nome: "null",
+      nome: 'null',
       sala: null,
       tipo: 1,
-      id: "semconta"
+      id: 'semconta',
     }
 
-    if(conta.senha == "teste") {
+    if (conta.senha === 'teste') {
       contabd = {
         nome: conta.nome,
         sala: '3NT',
         tipo: 1,
-        id: "contateste"
+        id: 'contateste',
       }
-    } else if(conta.senha == "teste2") {
+    } else if (conta.senha === 'teste2') {
       contabd = {
         nome: conta.nome,
         sala: null,
         tipo: 3,
-        id: "contateste2"
+        id: 'contateste2',
       }
     } else {
       ///////////////////////////////////
@@ -72,16 +72,16 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
           nome: true,
           sala: true,
           tipo: true,
-          id: true
+          id: true,
         },
       })
     }
-    
+
     try {
       //////////DEBUG////////////
-      if(contabd?.nome == "null" || null) {
+      if (contabd?.nome === 'null' || null) {
         const resposta: resposta = {
-          error: "usuário inválido",
+          error: 'usuário inválido',
           resultado: false,
         }
         return resposta
@@ -95,9 +95,10 @@ export async function fazerLogin(conta: conta): Promise<resposta> {
       const session = await encrypt({ contabd, expires })
 
       //criar cookie
-      ;(await
-        //criar cookie
-        cookies()).set('session', session, { expires, httpOnly: true })
+      ;(
+        await //criar cookie
+        cookies()
+      ).set('session', session, { expires, httpOnly: true })
 
       //redirecionamento para a página principal
       const respota: resposta = {

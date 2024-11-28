@@ -37,7 +37,7 @@ export async function deletar(id: string) {
         id: id,
       },
     })
-    revalidatePath('/home/avisos')
+    revalidatePath('/avisos')
   } catch (error) {
     console.log(`Algo deu errado ao tentar criar um post, erro: ${error}`)
   }
