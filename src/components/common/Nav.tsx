@@ -1,10 +1,18 @@
 import UsuarioLogado from './usuario'
 import AdmNav from './AdmNav'
 import { getCookies } from '@/utils/session'
-import { urlpath } from '@/app/layout'
+import { headers } from 'next/headers'
 
 export default async function Nav() {
   const cookies = await getCookies()
+
+  //há um problema nisso pois o layout não vai recarregar esses dados, provavelmente eu terei que pegar de algum arquivo do utils
+  //quando esse código estava no RootLayout estava funcionando por algum motivo
+  //pegando o url do middleware
+  const headersList = await headers()
+  const header_url = headersList.get('x-url') || 'http://localhost:3000/'
+  const urlpath = header_url.substring(21)
+
   console.log(`Sua localização é: ${urlpath}`)
   console.log(`Sua conta no home page é ${cookies}`)
 
