@@ -8,7 +8,7 @@ import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
 //interfaces
-export interface user {
+export type user = {
   nome: string
   sala: string | null
   tipo: number //depois eu irei mudar para string
