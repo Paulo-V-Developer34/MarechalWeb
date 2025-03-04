@@ -1,10 +1,21 @@
+"use client"
+
 import UsuarioLogado from './usuario'
 import AdmNav from './AdmNav'
-import { getCookies } from '@/utils/session'
+import { getCookies, user } from '@/utils/session'
 import { urlpath } from '@/app/layout'
+import { useEffect, useState } from 'react'
+import { getURL } from 'next/dist/shared/lib/utils'
 
-export default async function Nav() {
-  const cookies = await getCookies()
+export default function Nav() {
+  const [cookies, setCookies] = useState<user>({nome: "Usuário inválido", tipo: 1, id: "sdlkfj", sala: null})
+  // const [urlPath, setUrlPath] = useState<string>(getURL())
+
+  getURL()
+
+  useEffect(()=>{},[getURL])
+
+  const cookies = getCookies()
   console.log(`Sua localização é: ${urlpath}`)
   console.log(`Sua conta no home page é ${cookies}`)
 
