@@ -2,53 +2,78 @@
 
 import UsuarioLogado from './usuario'
 import AdmNav from './AdmNav'
-import { getCookies, user } from '@/utils/session'
-import { urlpath } from '@/app/layout'
+import { getCookies, type user } from '@/utils/session'
+// import { urlpath } from '@/app/layout'
+// import { getURL } from 'next/dist/shared/lib/utils'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { getURL } from 'next/dist/shared/lib/utils'
+import toast from 'react-hot-toast'
+import Link from 'next/link'
 
 export default function Nav() {
-  const [cookies, setCookies] = useState<user>({nome: "Usuário inválido", tipo: 1, id: "sdlkfj", sala: null})
-  // const [urlPath, setUrlPath] = useState<string>(getURL())
-
-  getURL()
-
-  useEffect(()=>{},[getURL])
-
-  const cookies = getCookies()
+  const [cookies, setCookies] = useState<user | null>(null)
+  const urlpath = usePathname()
+  // const cookies = await getCookies()
   console.log(`Sua localização é: ${urlpath}`)
   console.log(`Sua conta no home page é ${cookies}`)
 
-  return (
-    <nav className="bg-gray-800 p-4 fixed top-0 w-full shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-base font-bold">
-          <i>
-            <p>Logo</p>
-          </i>
-        </div>
-        <div className="flex space-x-4">
-          {/* links */}
-          <div className={`${urlpath !== '/home' && 'hidden'} flex gap-[8vw]`}>
-            <a href="#avisos">
-              <p className="text-gray-300 hover:text-white">Avisos</p>
-            </a>
-            <a href="#agenda">
-              <p className="text-gray-300 hover:text-white">Agenda</p>
-            </a>
-            <a href="#impressora">
-              <p className="text-gray-300 hover:text-white">Impressora 3D</p>
-            </a>
+  useEffect(()=>{
+    getCookies().
+      then(
+        result => setCookies(result)
+      )
+  },[])
 
-            {cookies?.tipo === 3 && <AdmNav />}
-            <a href="#faleconosco">
-              <p className="text-gray-300 hover:text-white">Fale conosco</p>
-            </a>
+  // switch (urlpath) {
+  //   case "value":
+  //     console.log("o valor de 'urlpath' é 'value'")
+  //     break;
+        
+  //   default:
+  //     console.log(`o valor de 'urlpath' é ${urlpath}`)
+  //     break;
+  // }
+
+  return (
+    <header>
+      <nav className="bg-gray-800 p-4 fixed top-0 w-full shadow-md">
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="text-white text-base font-bold">
+            <i>
+              <p>Logo</p>
+            </i>
           </div>
-          <UsuarioLogado />
+          <div className="flex space-x-4">
+            {/* links */}
+            {urlpath === "/home"?
+              <div className={`${urlpath !== '/home' && 'hidden'} flex gap-[8vw]`}>
+                <a href="#avisos">
+                  <p className="text-gray-300 hover:text-white">Avisos</p>
+                </a>
+                <a href="#agenda">
+                  <p className="text-gray-300 hover:text-white">Agenda</p>
+                </a>
+                <a href="#impressora">
+                  <p className="text-gray-300 hover:text-white">Impressora 3D</p>
+                </a>
+
+                {cookies? 
+                  cookies.tipo === 3 && <AdmNav />:
+                  toast.error("Você não está logado ou sua sessão expirou")
+                }
+
+                <a href="#faleconosco">
+                  <p className="text-gray-300 hover:text-white">Fale conosco</p>
+                </a>
+              </div>
+              :
+              <Link href={"/home"} className="text-gray-300 hover:text-white">HOME</Link>
+            }
+            <UsuarioLogado />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   )
 }
 
